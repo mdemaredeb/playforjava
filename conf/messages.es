@@ -1,0 +1,12 @@
+contact = Contacto
+prods = Productos
+home = Home
+products.Catalog = Catalogo
+newprod = Nuevo
+allProds = Todos los productos
+name = Nombre
+desc = Descripcion
+date = Fecha
+form = Formulario del producto
+pict = Foto
+products.ammount = {0,choice,0#No hay productos|1#Hay un producto|1< Hay {0} productos}.

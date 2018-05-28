@@ -1,0 +1,12 @@
+contact = Contact
+prods = Products
+home = Home
+products.Catalog = Product Catalog
+newprod = New product
+allProds = All products
+name = Name
+desc = Description
+date = Date
+form = Product form
+pict = Picture
+products.ammount = There {0,choice,0#are no products|1#is one product|1< are {0} products}.

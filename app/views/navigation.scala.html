@@ -1,0 +1,15 @@
+@()
+@import play.i18n.Messages
+
+<div class="navbar navbar-inverse " id="navigation">
+    <div class="navbar-inner">
+        <div class="container">
+            <a class="brand" href="@routes.Products.index()">
+                @Messages.get("products.Catalog")</a>
+            <ul class="nav">
+                <li><a href="@routes.Products.index()">@Messages.get("home")</a></li>
+                <li><a href="@routes.Products.list()">@Messages.get("prods")</a></li>
+                <li><a href="">@Messages.get("contact")</a></li>
+            </ul></div>
+    </div>
+</div>

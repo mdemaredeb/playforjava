@@ -1,0 +1,59 @@
+@(productForm: Form[Product])
+@import helper._
+@import helper.twitterBootstrap._
+@import play.i18n.Messages
+
+@main(Messages.get("form")) {
+    @* @if(productForm.errors().size() > 0){
+        <p>Please fix the following errors<ul>
+            @for(error <- productForm.errors() ) {
+                <li>@error</li>
+                <br/>
+            }
+        <ul></p>
+    }*@
+    <h1><center>@Messages.get("form")</center></h1>
+
+
+    @helper.form(action = helper.CSRF(routes.Products.save()), 'enctype -> "multipart/form-data") {
+        <fieldset>
+            <legend>Product (@productForm("name").valueOr("New"))</legend>
+            @helper.inputText(productForm("ean"), '_label -> "EAN")<br/>
+            @helper.inputText(productForm("name"),'_label -> Messages.get("name"))<br/>
+            @helper.textarea(productForm("description"), '_label -> Messages.get("desc"))
+            @helper.inputText(productForm("date"),'_label -> Messages.get("date"))<br/>
+            @helper.inputFile(productForm("picture"),'_label -> Messages.get("pict"))<br/>
+            <input type="hidden" value="@productForm("id").valueOr("")" name="id"/>
+        </fieldset>
+        @if(!productForm("picture").valueOr("").isEmpty()) {
+            <div class="control-group">
+                <div class="controls">
+                    <img
+                    style="position:relative; left:50px;height:80px"
+                    src="/picture/@productForm("ean").value">
+                </div>
+            </div>
+        }
+        <input type="submit" class="btn btn-info" value="Save"/>
+        <a class="btn" href="@routes.Products.index()">Cancel</a>
+        <br/>
+        <div class="control-group">
+            <div class="form-check">
+                <input name="tags[0].id" value="1" type="checkbox"
+                @for(i <- 0 to 2) {
+                    @if(productForm("tags[" + i + "].id").value=="1"){ checked }
+                }> lightweight
+                <input name="tags[1].id" value="2" type="checkbox"
+                @for(i <- 0 to 2) {
+                    @if(productForm("tags[" + i + "].id").value=="2"){ checked }
+                }> metal
+                <input name="tags[2].id" value="3" type="checkbox"
+                @for(i <- 0 to 2) {
+                    @if(productForm("tags[" + i + "].id").value=="3"){ checked }
+                }> plastic
+            </div>
+        </div>
+    }
+
+
+}

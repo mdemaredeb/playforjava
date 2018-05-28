@@ -1,0 +1,90 @@
+@(currentPage: com.avaje.ebean.Page[Product])
+@import helper._
+@import helper.twitterBootstrap._
+@main("Products catalogue") {
+    <h2>All products</h2>
+    <h4>Page @currentPage.getPageIndex()</h4>
+    <script>
+            function del(urlToDelete) {
+                $.ajax({
+                    url: urlToDelete,
+                    type: 'DELETE',
+                    success: function(results) {
+                        location.reload();  // Refresh the page
+                    }
+                });
+            }
+    </script>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>  </th>
+                <th>EAN</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>  </th>
+            </tr>
+        </thead>
+        <tbody>
+            @for((product, i )<- currentPage.getList().zipWithIndex) {
+                <tr>
+                    <td>@(i+1)</td>
+                    <td><a href="@routes.Products.details(product)">
+                        @product.ean
+                    </a></td>
+                    <td><a href="@routes.Products.details(product)">
+                        @product.name
+                    </a></td>
+                    <td><a href="@routes.Products.details(product)">
+                        @product.description
+                    </a></td>
+                    <td>
+                        <a href="@routes.Products.details(product)">
+                            <i class="icon icon-pencil"></i>Edit</a>
+                        <a onclick="del('@routes.Products.delete(product.ean)')" style="Color: blue">
+                            <i class="icon icon-trash">Del</i></a>
+                    </td>
+
+                </tr>
+            }
+        </tbody>
+    </table>
+    <a href="@routes.Products.newProduct()" class="btn">
+        <i class="icon-plus"></i> New product</a>
+    <br/>
+    <br/>
+    <div id="pagination" class="pagination">
+        <ul class="pagination">
+            @if(currentPage.hasPrev) {
+                <li class="page-item">
+                    <a class = "page-link" href="@routes.Products.list(currentPage.getPageIndex-1)">
+                                &larr; </a>
+                </li>
+            } else {
+                <li class="page-item disabled">
+                    <a class = "page-link" >&larr;</a>
+                </li>
+            }
+            <li class="page-item">
+                <a class = "page-link" >@currentPage.getDisplayXtoYofZ(" - "," / ")</a>
+            </li>
+            @if(currentPage.hasNext) {
+                <li class="page-item">
+                    <a class = "page-link"
+                    href="@routes.Products.list(currentPage.getPageIndex+1)">
+                                &rarr;</a>
+                </li>
+            } else {
+                <li class="page-item disabled">
+                    <a class = "page-link" >&rarr;</a>
+                </li>
+            }
+        </ul>
+    </div>
+    @*comment*@
+    @**
+    *
+    *
+    *@
+
+}
